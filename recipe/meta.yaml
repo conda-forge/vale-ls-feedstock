@@ -1,4 +1,4 @@
-{% set version = "0.3.8" %}
+{% set version = "0.4.0" %}
 
 package:
   name: vale-ls
@@ -6,7 +6,7 @@ package:
 
 source:
   url: https://github.com/errata-ai/vale-ls/archive/refs/tags/v{{ version }}.tar.gz
-  sha256: c739fef40348f22f6fda29772a2a3ad8a6fcb7321a9b22bbf33303007677b39e
+  sha256: b03334caf3533fef37192ccab04d44713bfaef5b059e97ea19c24429e13089b3
 
 build:
   number: 0
@@ -32,7 +32,7 @@ test:
   commands:
     - vale-ls --version
     - vale-ls --help
-    - vale-ls --version | grep -iE "{{ version.replace(".", "\.") }}"
+    - vale-ls --version | grep -iE {{ version.replace(".", "\.") }}
 
 about:
   home: https://vale.sh
