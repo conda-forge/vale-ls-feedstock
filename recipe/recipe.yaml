@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "0.5.0"
+  grep: ${{ 'grep -iE' if unix else 'findstr /c' }}
+
+package:
+  name: vale-ls
+  version: ${{ version }}
+
+source:
+  url: https://github.com/errata-ai/vale-ls/archive/refs/tags/v${{ version }}.tar.gz
+  sha256: 2ff774132bb022f12416e7bc12c37bd76e0e6b06473bd14fef40a0063fde6514
+
+build:
+  number: 0
+  script:
+    env:
+      CARGO_PROFILE_RELEASE_LTO: fat
+      CARGO_PROFILE_RELEASE_STRIP: symbols
+    file: build-vale-ls
+
+requirements:
+  build:
+    - ${{ compiler('rust') }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - cargo-bundle-licenses
+    - cargo-auditable
+    - if: unix
+      then:
+        - make
+        - pkg-config
+  host:
+    - if: unix
+      then:
+        - bzip2
+        - openssl
+        - zstd
+  run:
+    - vale >=3.0.0
+
+tests:
+  - script:
+      - vale-ls --version
+      - vale-ls --help
+      - vale-ls --version | ${{ grep }} ${{ version | replace(".", "\.") }}
+
+about:
+  license: MIT
+  license_file:
+    - LICENSE
+    - THIRDPARTY.yml
+  summary: An implementation of the Language Server Protocol (LSP) for the Vale command-line tool.
+  homepage: https://vale.sh
+  repository: https://github.com/errata-ai/vale-ls
+  documentation: https://vale.sh/docs/integrations/guide
+
+extra:
+  recipe-maintainers:
+    - bollwyvl

@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 set -o xtrace -o nounset -o pipefail -o errexit
 
-export RUST_BACKTRACE=1
+# export RUST_BACKTRACE=1
 export OPENSSL_DIR=$PREFIX
 
 # build statically linked binary with Rust
-cargo install --locked --root "${PREFIX}" --path .
+cargo auditable install \
+    --locked \
+    --root "${PREFIX}" \
+    --profile release \
+    --path .
 
 # dump licenses
 cargo-bundle-licenses --format yaml --output "${SRC_DIR}/THIRDPARTY.yml"

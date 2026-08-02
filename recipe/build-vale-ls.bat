@@ -1,5 +1,10 @@
 :: build
-cargo install --locked --root "%PREFIX%" --path . || exit 1
+cargo auditable install ^
+    --locked ^
+    --root "%PREFIX%" ^
+    --profile release ^
+    --path . ^
+    || exit 1
 
 :: move to scripts
 md "%SCRIPTS%" || echo "%SCRIPTS% already exists"
