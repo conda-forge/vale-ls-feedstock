@@ -3,7 +3,7 @@ About vale-ls-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/vale-ls-feedstock/blob/main/LICENSE.txt)
 
-Home: https://vale.sh
+Home: https://vale.sh/
 
 Package license: MIT
 
@@ -42,6 +42,13 @@ Current build status
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=21260&branchName=main">
                   <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/vale-ls-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_" alt="variant">
+                </a>
+              </td>
+            </tr><tr>
+              <td>osx_arm64</td>
+              <td>
+                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=21260&branchName=main">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/vale-ls-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_" alt="variant">
                 </a>
               </td>
             </tr><tr>
