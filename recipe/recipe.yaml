@@ -3,7 +3,7 @@ schema_version: 1
 
 context:
   version: "0.6.0"
-  grep: ${{ 'grep -iE' if unix else 'findstr /c' }}
+  grep: ${{ 'grep -iE ' if unix else 'findstr /r /c:' }}
 
 package:
   name: vale-ls
@@ -17,13 +17,11 @@ build:
   number: 0
   script:
     env:
+      OPENSSL_DIR: ${{ "$PREFIX" if unix else "%LIBRARY_PREFIX%" }}
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
     content:
-      - if: unix
-        then:
-          - export OPENSSL_DIR=${PREFIX}
-      - cargo auditable install --locked --root="${{ PREFIX }}" --profile=release --path=.
+      - cargo auditable install --no-track --locked --root="${{ PREFIX }}" --profile=release --path=.
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
       - if: win
         then:
@@ -58,7 +56,7 @@ tests:
   - script:
       - vale-ls --version
       - vale-ls --help
-      - vale-ls --version | ${{ grep }} ${{ version | replace(".", "\.") }}
+      - vale-ls --version | ${{ grep }}${{ version | replace(".", "\.") }}
 
 about:
   license: MIT
