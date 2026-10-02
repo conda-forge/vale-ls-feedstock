@@ -20,6 +20,8 @@ build:
       OPENSSL_DIR: ${{ "$PREFIX" if unix else "%LIBRARY_PREFIX%" }}
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
+      ZSTD_SYS_USE_PKG_CONFIG: "1"
+      LZMA_API_STATIC: "0"
     content:
       - cargo auditable install --no-track --locked --root="${{ PREFIX }}" --profile=release --path=.
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
@@ -35,16 +37,12 @@ requirements:
     - ${{ stdlib("c") }}
     - cargo-bundle-licenses
     - cargo-auditable
-    - if: unix
-      then:
-        - make
-        - pkg-config
+    - make
+    - pkg-config
   host:
-    - if: unix
-      then:
-        - bzip2
-        - openssl
-        - zstd
+    - bzip2
+    - openssl
+    - zstd
   run:
     - vale >=3.0.0
 
