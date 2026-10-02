@@ -1,3 +1,5 @@
+bzip2:
+- '1'
 c_compiler:
 - vs2022
 c_stdlib:
@@ -6,7 +8,11 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+openssl:
+- '3.5'
 rust_compiler:
 - rust
 target_platform:
 - win-64
+zstd:
+- '1.5'
