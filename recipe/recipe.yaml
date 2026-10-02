@@ -17,12 +17,10 @@ build:
   number: 0
   script:
     env:
-      OPENSSL_DIR: ${{ "$PREFIX" if unix else "%LIBRARY_PREFIX%" }}
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
+      # ensure rust `zstd-sys` links against conda-forge `zstd`
       ZSTD_SYS_USE_PKG_CONFIG: "1"
-      LZMA_API_STATIC: "0"
-      BZIP2_NO_PKG_CONFIG: "0"
     content:
       - cargo auditable install -v --no-track --locked --root="${{ PREFIX }}" --profile=release --path=.
       - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
@@ -41,7 +39,6 @@ requirements:
     - make
     - pkg-config
   host:
-    - bzip2
     - zstd
   run:
     - vale >=3.0.0
@@ -63,8 +60,8 @@ about:
     - THIRDPARTY.yml
   summary: An implementation of the Language Server Protocol (LSP) for the Vale command-line tool.
   homepage: https://vale.sh
-  repository: https://github.com/errata-ai/vale-ls
-  documentation: https://vale.sh/docs/integrations/guide
+  repository: https://github.com/vale-cli/vale-ls
+  documentation: https://vale.sh/docs/guides/lsp
 
 extra:
   recipe-maintainers:
