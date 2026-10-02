@@ -19,12 +19,21 @@ build:
     env:
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
-    file: build-vale-ls
+    content:
+      - if: unix
+        then:
+          - export OPENSSL_DIR=${PREFIX}
+      - cargo auditable install --locked --root="${{ PREFIX }}" --profile=release --path=.
+      - cargo-bundle-licenses --format yaml --output THIRDPARTY.yml
+      - if: win
+        then:
+          - md "%SCRIPTS%" || echo "%SCRIPTS% already exists"
+          - move "%PREFIX%\bin\vale-ls.exe" "%SCRIPTS%"
 
 requirements:
   build:
-    - ${{ compiler('rust') }}
-    - ${{ compiler('c') }}
+    - ${{ compiler("rust") }}
+    - ${{ compiler("c") }}
     - ${{ stdlib("c") }}
     - cargo-bundle-licenses
     - cargo-auditable
@@ -42,6 +51,10 @@ requirements:
     - vale >=3.0.0
 
 tests:
+  - package_contents:
+      strict: true
+      bin:
+        - vale-ls
   - script:
       - vale-ls --version
       - vale-ls --help
