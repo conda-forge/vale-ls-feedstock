@@ -9,9 +9,9 @@ Package license: MIT
 
 Summary: An implementation of the Language Server Protocol (LSP) for the Vale command-line tool.
 
-Development: https://github.com/errata-ai/vale-ls
+Development: https://github.com/vale-cli/vale-ls
 
-Documentation: https://vale.sh/docs/integrations/guide
+Documentation: https://vale.sh/docs/guides/lsp
 
 Current build status
 ====================
