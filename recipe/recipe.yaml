@@ -14,7 +14,7 @@ source:
   sha256: 0645f643ba6d1c5b5d641a100a0d7135661fada60a630f38032812959806f4e5
 
 build:
-  number: 0
+  number: 1
   script:
     env:
       CARGO_PROFILE_RELEASE_LTO: fat
@@ -37,7 +37,7 @@ requirements:
     - cargo-bundle-licenses
     - cargo-auditable
     - make
-    - pkg-config
+    - pkgconf
   host:
     - zstd
   run:
