@@ -37,7 +37,7 @@ requirements:
     - cargo-bundle-licenses
     - cargo-auditable
     - make
-    - pkg-config
+    - pkgconf
   host:
     - zstd
   run:
